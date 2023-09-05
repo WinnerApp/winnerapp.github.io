@@ -13,7 +13,7 @@ void main() {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
-      initialBinding: BindingsBuilder.put(() => GlobalController()),
+      initialBinding: BindingsBuilder.put(() => global),
     ),
   );
 }

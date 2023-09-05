@@ -10,29 +10,42 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('稳健医疗  App  团队技术官网'),
-        centerTitle: false,
-        backgroundColor: mainColor,
-        toolbarHeight: 100,
-        actions: [
-          TextButton(
-            onPressed: () => Get.dialog(const Dialog(
-              backgroundColor: mainColor,
-              child: LoginView(),
-            )),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                '登录',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          title: const Text('稳健医疗  App  团队技术官网'),
+          centerTitle: false,
+          backgroundColor: mainColor,
+          toolbarHeight: 100,
+          actions: [
+            if (!controller.isLogin)
+              TextButton(
+                onPressed: () => Get.dialog(const Dialog(
+                  backgroundColor: mainColor,
+                  child: LoginView(),
+                )),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '登录',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
+            if (controller.isLogin)
+              IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+            if (controller.isLogin)
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  global.user?.name ?? '',
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+          ],
+        ),
+        body: Container(),
       ),
-      body: Container(),
     );
   }
 }

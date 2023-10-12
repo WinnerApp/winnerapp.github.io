@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_winnerapp_website/app/common/define.dart';
 import 'package:flutter_winnerapp_website/app/modules/login/views/login_view.dart';
+import 'package:flutter_winnerapp_website/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
@@ -33,7 +34,10 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
             if (controller.isLogin)
-              IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+              IconButton(
+                onPressed: () => Get.toNamed(Routes.CREATE_POSTER),
+                icon: const Icon(Icons.add),
+              ),
             if (controller.isLogin)
               TextButton(
                 onPressed: () {},

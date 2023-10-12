@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/create_poster/bindings/create_poster_binding.dart';
+import '../modules/create_poster/views/create_poster_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_POSTER,
+      page: () => const CreatePosterView(),
+      binding: CreatePosterBinding(),
     ),
   ];
 }

@@ -21,7 +21,7 @@ jobs:
         run: flutter pub get
 
       - name: Start Web Release Build
-        run: flutter build web --release --web-renderer=html
+        run: flutter build web --release --web-renderer=html --dart-define=HOST=https://winnerapp.github.io
      
       - name: Upload Web Build Files
         uses: actions/upload-artifact@v2

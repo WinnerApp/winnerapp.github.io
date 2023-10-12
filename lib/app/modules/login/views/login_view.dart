@@ -22,7 +22,7 @@ class LoginView extends GetView<LoginController> {
         children: [
           const Text(
             '选择登录方式进行登录',
-            style: TextStyle(fontSize: 24, color: Colors.black),
+            style: TextStyle(fontSize: 24, color: Colors.white),
           ),
           const SizedBox(height: 30),
           ElevatedButton.icon(
@@ -30,10 +30,10 @@ class LoginView extends GetView<LoginController> {
                 backgroundColor: mainColor,
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 50)),
-            icon: Assets.images.githubMark.image(),
+            icon: Assets.images.githubMark.image(color: Colors.white),
             label: const Text(
               'Github',
-              style: TextStyle(fontSize: 24, color: Colors.black),
+              style: TextStyle(fontSize: 24, color: Colors.white),
             ),
             onPressed: () => controller.githubLogin(),
           ),

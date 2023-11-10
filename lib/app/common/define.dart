@@ -5,10 +5,14 @@ import 'package:appwrite/models.dart';
 import 'package:darty_json_safe/darty_json_safe.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const mainColor = Color(0xff3CBBC0);
 const double appBarHeight = 100;
+final logger = Logger(
+  filter: DevelopmentFilter(),
+);
 
 /// 保存全局的信息
 class GlobalController extends GetxController {

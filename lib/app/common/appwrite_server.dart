@@ -28,11 +28,34 @@ class AppwriteServer {
               'content': content,
             }),
           )
-          .then((value) => value.response);
+          .then((value) => value.response());
     } catch (e) {
       return AppwriteServerResponse(-1, e.toString());
     }
-    ;
+  }
+
+  /// 获取文章列表
+  Future<AppwriteServerResponse<AppwriteServerResponseList>> getPosters(
+      [String? cursorId]) async {
+    try {
+      final execution = await functions.createExecution(
+        functionId: appwriteServerFunctionId,
+        path: '/getArticleList',
+        method: 'GET',
+        body: json.encode({
+          'pageNumber': 20,
+          'cursorId': cursorId,
+        }),
+      );
+      return execution.response<AppwriteServerResponseList>((data) {
+        final list = AppwriteServerResponseList.fromJson(data);
+        return list;
+      });
+    } catch (e) {
+      logger.e(e.toString());
+      return AppwriteServerResponse<AppwriteServerResponseList>(
+          -1, e.toString());
+    }
   }
 }
 
@@ -42,26 +65,58 @@ extension ExecutionState on Execution {
   bool get isCompleted => status == 'completed';
   bool get isFailed => status == 'failed';
 
-  AppwriteServerResponse get response {
+  AppwriteServerResponse<T> response<T>(
+      [T Function(dynamic data)? dataConver]) {
     if (isFailed) {
       return AppwriteServerResponse(responseStatusCode, errors);
     } else {
       final jsonValue = json.decode(responseBody);
-      return AppwriteServerResponse(
-        JSON(jsonValue)['code'].intValue,
-        JSON(jsonValue)['message'].string,
-        JSON(jsonValue)['data'].rawValue,
-      );
+      final data = JSON(jsonValue)['data'].rawValue;
+      final value = Unwrap(dataConver).map((e) {
+        if (data == null) return null;
+        final value = e.call(data);
+        logger.d(e.runtimeType);
+        return e(data);
+      });
+      final code = JSON(jsonValue)['code'].intValue;
+      final message = JSON(jsonValue)['message'].string;
+      if (dataConver != null) {
+        return AppwriteServerResponse<T>(
+          code,
+          message,
+          Unwrap(dataConver).map((e) {
+            if (data == null) return null;
+            return e(data);
+          }).value,
+        );
+      } else {
+        return AppwriteServerResponse<T>(
+          code,
+          message,
+          data,
+        );
+      }
     }
   }
 }
 
-class AppwriteServerResponse {
+class AppwriteServerResponse<T> {
   final int code;
   final String? message;
-  final dynamic data;
+  final T? data;
 
   AppwriteServerResponse(this.code, this.message, [this.data]);
 
   bool get isSuccess => code == 200;
+}
+
+class AppwriteServerResponseList {
+  late int total;
+  late List<Document> list;
+
+  AppwriteServerResponseList.fromJson(Map<String, dynamic> json) {
+    total = JSON(json)['total'].intValue;
+    list =
+        JSON(json)['list'].listValue.map((e) => Document.fromMap(e)).toList();
+  }
 }

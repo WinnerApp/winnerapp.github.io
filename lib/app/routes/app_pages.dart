@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/article_detail/bindings/article_detail_binding.dart';
+import '../modules/article_detail/views/article_detail_view.dart';
 import '../modules/create_poster/bindings/create_poster_binding.dart';
 import '../modules/create_poster/views/create_poster_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.CREATE_POSTER,
       page: () => const CreatePosterView(),
       binding: CreatePosterBinding(),
+    ),
+    GetPage(
+      name: _Paths.ARTICLE_DETAIL,
+      page: () => const ArticleDetailView(),
+      binding: ArticleDetailBinding(),
     ),
   ];
 }

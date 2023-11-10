@@ -5,9 +5,10 @@ import 'package:appwrite/models.dart';
 import 'package:darty_json_safe/darty_json_safe.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const mainColor = Color(0xff3CBBC0);
+const double appBarHeight = 100;
 
 /// 保存全局的信息
 class GlobalController extends GetxController {
@@ -26,20 +27,22 @@ class GlobalController extends GetxController {
   Preferences? get userPrefs => userPrefsR.value;
 
   init() async {
-    final user = readUserFromLocal();
+    final user = await readUserFromLocal();
     if (user != null) {
       userR.value = user;
     }
   }
 
   // 保存用户信息到本地
-  void saveUserInLocal(User user) {
+  Future<void> saveUserInLocal(User user) {
     final userJson = json.encode(user.toMap());
-    GetStorage().write(userKey, userJson);
+    return SharedPreferences.getInstance()
+        .then((value) => value.setString(userKey, userJson));
   }
 
-  User? readUserFromLocal() {
-    String? userJson = GetStorage().read(userKey);
+  Future<User?> readUserFromLocal() async {
+    String? userJson = await SharedPreferences.getInstance()
+        .then((value) => value.getString(userKey));
     return Unwrap(userJson).map((e) {
       final user = User.fromMap(json.decode(e));
       return user;
@@ -55,3 +58,5 @@ Client client = Client()
   ..setEndpoint('https://cloud.appwrite.io/v1')
   ..setProject('winner-app')
   ..setSelfSigned(status: true);
+
+const appwriteServerFunctionId = 'dart_server';

@@ -15,9 +15,7 @@ class LoginController extends GetxController {
 
     try {
       await account.createOAuth2Session(
-        provider: 'github',
-        success: '$host/auth.html',
-      );
+          provider: 'github', success: '$host/auth.html', scopes: ['user']);
       final user = await account.get();
       // final userPrefs = await account.getPrefs();
       global.userR.value = user;

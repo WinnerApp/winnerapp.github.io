@@ -27,4 +27,8 @@ class HomeController extends GetxController {
     total = data.total;
     articles.value = data.list;
   }
+
+  void logout() {
+    global.userR.value = null;
+  }
 }

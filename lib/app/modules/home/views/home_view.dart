@@ -52,6 +52,16 @@ class HomeView extends GetView<HomeController> {
                   style: const TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
+            if (controller.isLogin)
+              IconButton(
+                onPressed: () {
+                  controller.logout();
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+              )
           ],
         ),
         body: Container(

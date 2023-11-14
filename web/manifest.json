@@ -1,11 +1,11 @@
 {
-    "name": "flutter_winnerapp_website",
-    "short_name": "flutter_winnerapp_website",
+    "name": "稳健 App 技术官网",
+    "short_name": "稳健 App",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "主要可以发布和展示 App 技术团队发布的技术文章",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

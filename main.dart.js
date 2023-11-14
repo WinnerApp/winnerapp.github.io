@@ -26671,7 +26671,7 @@ m=$.ad
 m.toString
 l=$.bg().d.h(0,0)
 l.toString
-m.Zp(new A.WX(l,new A.A2(new A.Ad("/home",o,n,"Application",!1,p,q,null),null),new A.kF(l,t.bT)))
+m.Zp(new A.WX(l,new A.A2(new A.Ad("/home",o,n,"\u7a33\u5065App\u6280\u672f\u5b98\u7f51",!1,p,q,null),null),new A.kF(l,t.bT)))
 m.CE()
 return A.L(null,r)}})
 return A.M($async$aF4,r)},

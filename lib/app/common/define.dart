@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const mainColor = Color(0xff3CBBC0);
 const double appBarHeight = 100;
 final logger = Logger(
-  filter: DevelopmentFilter(),
+  filter: ProductionFilter(),
 );
 
 /// 保存全局的信息

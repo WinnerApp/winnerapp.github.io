@@ -14,9 +14,18 @@ class LoginController extends GetxController {
     );
 
     try {
-      await account.createOAuth2Session(
-          provider: 'github', success: '$host/auth.html', scopes: ['user']);
+      final result = await account.createOAuth2Session(
+        provider: 'github',
+        success: '$host/auth.html',
+      );
+      logger.i(result);
+
+      // final sessionList = await account.listSessions();
+
+      final session = await account.getSession(sessionId: 'current');
+      logger.i(session.toMap());
       final user = await account.get();
+      logger.i(user.toMap());
       // final userPrefs = await account.getPrefs();
       global.userR.value = user;
       // 保存登录的用户到本地

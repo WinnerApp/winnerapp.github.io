@@ -15,7 +15,7 @@ void main() async {
   runApp(
     FluentApp(
       home: GetMaterialApp(
-        title: "Application",
+        title: "稳健App技术官网",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         debugShowCheckedModeBanner: false,
